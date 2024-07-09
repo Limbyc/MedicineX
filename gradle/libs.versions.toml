@@ -2,31 +2,35 @@
 agp = "8.5.0"
 chipNavigationBar = "1.3.4"
 firebaseCrashlytics = "19.0.2"
+firebaseCrashlyticsGradle = "3.0.2"
 firebaseFirestoreKtx = "25.0.0"
 fragmentKtx = "1.8.1"
-fragmentKtxVersion = "1.6.2"
+googleServices = "4.4.2"
+gradle = "8.1.4"
 kotlin = "1.9.0"
-coreKtx = "1.10.1"
+coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-appcompat = "1.6.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
 kotlinxCoroutinesCore = "1.7.3"
 lottie = "6.4.0"
-material = "1.10.0"
-activity = "1.8.0"
+material = "1.12.0"
+activity = "1.9.0"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
-androidx-fragment-ktx-v162 = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 chip-navigation-bar = { module = "com.ismaeldivita.chipnavigation:chip-navigation-bar", version.ref = "chipNavigationBar" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.30"
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -33,10 +36,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
-
     //Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
@@ -50,12 +55,6 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)
-
-    //bottom_navigation_graph
-    implementation (libs.chip.navigation.bar)
-
-    //fragment
-    implementation(libs.androidx.fragment.ktx.v162)
 
     //lottie
     implementation (libs.lottie)
