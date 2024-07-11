@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.valance.medicine.R
-import com.valance.medicine.data.Doctor
+import com.valance.medicine.data.repository.DoctorRepository
+import com.valance.medicine.data.source.FirestoreDoctorDataSource
 import com.valance.medicine.databinding.OrderFragmentBinding
+import com.valance.medicine.domain.model.Doctor
 import com.valance.medicine.ui.adapter.DoctorAdapter
+import com.valance.medicine.ui.model.DoctorDisplayModel
 import com.valance.medicine.ui.presenter.DoctorPresenter
 import com.valance.medicine.ui.presenter.ProfessionPresenter
 import com.valance.medicine.ui.view.DoctorContractInterface
@@ -44,10 +45,12 @@ class OrderFragment : Fragment(), ProfessionInterface,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val dataSource = FirestoreDoctorDataSource()
+        val repository = DoctorRepository(dataSource)
 
         doctorAdapter = DoctorAdapter(emptyList())
 
-        presenterDoctor = DoctorPresenter(this)
+        presenterDoctor = DoctorPresenter(this, repository)
         presenterDoctor.getDoctors()
 
         tabLayout1 = binding.tabLayout1
@@ -120,16 +123,18 @@ class OrderFragment : Fragment(), ProfessionInterface,
             ContextCompat.getDrawable(requireContext(), backgroundDrawableResId)
     }
 
-    override fun showDoctors(doctors: List<Doctor>) {
+    override fun showDoctors(doctors: List<DoctorDisplayModel>) {
         Log.d("OrderFragment", "Number of doctors: ${doctors.size}")
         doctorAdapter = DoctorAdapter(doctors)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = doctorAdapter
     }
 
+
     override fun getDoctors() {
         presenterDoctor.getDoctors()
     }
+
 }
 
 

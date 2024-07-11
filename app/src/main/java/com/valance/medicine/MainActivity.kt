@@ -31,9 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemUI()
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.orderFragment)
+//
 //
 //        val myApplication = application as Medicine
 //

@@ -9,7 +9,7 @@ import com.valance.medicine.R
 import java.io.File
 import java.io.FileOutputStream
 
-object ImageHelper {
+class ImageHelper {
 
     private val DEFAULT_IMAGE_RESOURCE = R.drawable.default_image
     fun saveImageToInternalStorage(context: Context, bitmap: Bitmap): String? {

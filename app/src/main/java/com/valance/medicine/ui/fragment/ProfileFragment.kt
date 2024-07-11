@@ -23,6 +23,7 @@ import java.io.IOException
 class ProfileFragment : Fragment(){
 
     private lateinit var binding: ProfileFragmentBinding
+    private lateinit var imageHelper: ImageHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +31,7 @@ class ProfileFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        imageHelper = ImageHelper()
         return binding.root
     }
 
@@ -50,7 +52,7 @@ class ProfileFragment : Fragment(){
             savePhoneToSharedPreferences(userPhone)
         }
 
-        val bitmap = ImageHelper.loadImageFromPath(requireContext())
+        val bitmap = imageHelper.loadImageFromPath(requireContext())
         bitmap?.let { binding.UserPhoto.setImageBitmap(it) }
 
         binding.cardView.setOnClickListener {
@@ -87,8 +89,8 @@ class ProfileFragment : Fragment(){
                     val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                     binding.UserPhoto.setImageBitmap(bitmap)
 
-                    val imagePath = ImageHelper.saveImageToInternalStorage(requireContext(), bitmap)
-                    ImageHelper.saveImagePathToSharedPreferences(requireContext(), imagePath)
+                    val imagePath = imageHelper.saveImageToInternalStorage(requireContext(), bitmap)
+                    imageHelper.saveImagePathToSharedPreferences(requireContext(), imagePath)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.valance.medicine.R
-import com.valance.medicine.data.Doctor
+import com.valance.medicine.ui.model.DoctorDisplayModel
 
-class DoctorAdapter(private val doctors: List<Doctor>) : RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
+class DoctorAdapter(private val doctors: List<DoctorDisplayModel>) : RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
 
     inner class DoctorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: AppCompatTextView = itemView.findViewById(R.id.name)
         private val professionTextView: AppCompatTextView = itemView.findViewById(R.id.profession)
         private val addInfoTextView: AppCompatTextView = itemView.findViewById(R.id.addInfo)
         private val compasitiveTextView: AppCompatTextView = itemView.findViewById(R.id.compasitive)
-        fun bind(doctor: Doctor) {
+        fun bind(doctor: DoctorDisplayModel) {
             nameTextView.text = doctor.name
             professionTextView.text = doctor.profession
             addInfoTextView.text = doctor.addInfo
