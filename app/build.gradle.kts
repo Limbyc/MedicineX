@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.serialization)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -47,6 +48,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.datastore.core.android)
     testImplementation(libs.kotlinx.coroutines.test)
 
     //firebase
@@ -60,7 +62,6 @@ dependencies {
 
     //lottie
     implementation (libs.lottie)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -70,4 +71,25 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //protoDB
+//    implementation(libs.protobuf.javalite)
+    implementation (libs.androidx.datastore.preferences)
 }
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobufJavalite.get()}"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+            }
+
+        }
+    }
+}
+
+

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,16 +13,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.valance.medicine.R
 import com.valance.medicine.databinding.ProfileFragmentBinding
+import com.valance.medicine.domain.usecase.GetUserInfoUseCase
+import com.valance.medicine.domain.usecase.SaveUserInfoUseCase
+import com.valance.medicine.data.userInfoDataStore
 import com.valance.medicine.ui.ImageHelper
+import kotlinx.coroutines.launch
 import java.io.IOException
 
-class ProfileFragment : Fragment(){
+class ProfileFragment : Fragment() {
 
     private lateinit var binding: ProfileFragmentBinding
     private lateinit var imageHelper: ImageHelper
+    private lateinit var getUserInfoUseCase: GetUserInfoUseCase
+    private lateinit var saveUserInfoUseCase: SaveUserInfoUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,28 +38,34 @@ class ProfileFragment : Fragment(){
     ): View {
         binding = ProfileFragmentBinding.inflate(inflater, container, false)
         imageHelper = ImageHelper()
+
+        // Инициализация use cases
+        getUserInfoUseCase = GetUserInfoUseCase(requireContext().userInfoDataStore)
+        saveUserInfoUseCase = SaveUserInfoUseCase(requireContext().userInfoDataStore)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val context = requireContext()
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val userId = sharedPreferences.getString("userId", null)
-        val userPhone = sharedPreferences.getString("userPhone", null)
+        lifecycleScope.launch {
+            val userInfo = getUserInfoUseCase.execute()
+            val userId = userInfo.id
+            val userPhone = userInfo.userPhone
 
-        activity?.runOnUiThread {
-            binding.IdUser.text = "ID: $userId"
-            binding.PhoneUser.text = "Phone: $userPhone"
+            activity?.runOnUiThread {
+                binding.IdUser.text = "ID: $userId"
+                binding.PhoneUser.text = "Phone: $userPhone"
+            }
+
+            if (userId != null && userPhone != null) {
+                saveUserInfoToDataStore(userId, userPhone)
+            }
+
+            val bitmap = imageHelper.loadImageFromPath(requireContext())
+            bitmap?.let { binding.UserPhoto.setImageBitmap(it) }
         }
-
-        if (userPhone !== null) {
-            savePhoneToSharedPreferences(userPhone)
-        }
-
-        val bitmap = imageHelper.loadImageFromPath(requireContext())
-        bitmap?.let { binding.UserPhoto.setImageBitmap(it) }
 
         binding.cardView.setOnClickListener {
             pickPhoto()
@@ -98,12 +110,10 @@ class ProfileFragment : Fragment(){
         }
     }
 
-    private fun savePhoneToSharedPreferences(phone: String) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val editor = sharedPreferences.edit()
-        editor.putString("userPhone", phone)
-        editor.apply()
-        Log.d("ProfileFragment", "Saved phone number: $phone")
+    private fun saveUserInfoToDataStore(userId: String, phone: String) {
+        lifecycleScope.launch {
+            saveUserInfoUseCase.execute(userId, phone)
+            Log.d("ProfileFragment", "Saved user info: ID: $userId, Phone: $phone")
+        }
     }
-
 }

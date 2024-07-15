@@ -12,14 +12,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.valance.medicine.Medicine.Companion.sharedPreferences
 import com.valance.medicine.R
+import com.valance.medicine.data.userInfoDataStore
 import com.valance.medicine.databinding.UserinfoFragmentBinding
 import com.valance.medicine.ui.presenter.UserInfoPresenter
 import com.valance.medicine.ui.view.UserInfoView
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -28,6 +29,7 @@ class UserInfoFragment: Fragment(), UserInfoView {
     private lateinit var binding: UserinfoFragmentBinding
     private lateinit var presenter: UserInfoPresenter
     private var addInfoFlag = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -140,14 +142,15 @@ class UserInfoFragment: Fragment(), UserInfoView {
             addInfoFlag = 1
 
             binding.addInfo.setOnClickListener {
-                GlobalScope.launch {
-                    val userPhone = sharedPreferences.getString("userPhone", null)
-                    userPhone?.let { phone ->
+                val navController = findNavController()
+                lifecycleScope.launch {
+                    val userInfo =
+                        context?.userInfoDataStore?.data?.first()
+                    userInfo?.userPhone?.let { phone ->
                         presenter.addUserInfo(phone, name, lastName, birthday)
                     }
+                    navController.navigate(R.id.profileFragment)
                 }
-                findNavController().navigate(R.id.profileFragment)
-
             }
 
         } else {

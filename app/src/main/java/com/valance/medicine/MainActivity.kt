@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.navigate(R.id.orderFragment)
+        navController.navigate(R.id.profileFragment)
 //
 //
 //        val myApplication = application as Medicine

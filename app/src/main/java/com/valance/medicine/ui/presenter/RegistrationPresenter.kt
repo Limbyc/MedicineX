@@ -1,11 +1,12 @@
 package com.valance.medicine.ui.presenter
 
 import android.content.Context
-import android.preference.PreferenceManager
 import androidx.navigation.NavController
 import com.valance.medicine.R
+import com.valance.medicine.domain.usecase.SaveUserInfoUseCase
 import com.valance.medicine.ui.model.UserModel
 import com.valance.medicine.ui.view.UserAuthView
+import com.valance.medicine.data.userInfoDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -15,6 +16,7 @@ class RegistrationPresenter(
     private val context: Context,
     private val userAuthView: UserAuthView
 ) {
+    private val saveUserInfoUseCase = SaveUserInfoUseCase(context.userInfoDataStore)
 
     suspend fun registerUser(phone: String, password: String) {
         val userExists = userModel.checkIfUserExists(phone)
@@ -25,14 +27,14 @@ class RegistrationPresenter(
 
         val result = userModel.saveUser(phone, password)
         if (result.success) {
-            val (userId, userPhone) = result
+            val userId = result.userId
+            val userPhone = result.phone
 
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val editor = sharedPreferences.edit()
-
-            editor.putString("userId", userId)
-            editor.putString("userPhone", userPhone)
-            editor.apply()
+            if (userId != null) {
+                if (userPhone != null) {
+                    saveUserInfo(userId, userPhone)
+                }
+            }
 
             withContext(Dispatchers.Main) {
                 navController.navigate(R.id.mainFragment)
@@ -40,8 +42,7 @@ class RegistrationPresenter(
         }
     }
 
-
+    private suspend fun saveUserInfo(userId: String, userPhone: String) {
+        saveUserInfoUseCase.execute(userId, userPhone)
+    }
 }
-
-
-
