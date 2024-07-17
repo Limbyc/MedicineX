@@ -1,39 +1,34 @@
 package com.valance.medicine.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.valance.medicine.R
+import com.valance.medicine.databinding.ItemDoctorBinding
+import com.valance.medicine.ui.DoctorDiffCallback
 import com.valance.medicine.ui.model.DoctorDisplayModel
 
-class DoctorAdapter(private val doctors: List<DoctorDisplayModel>) : RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
+class DoctorAdapter : ListAdapter<DoctorDisplayModel, DoctorAdapter.DoctorViewHolder>(
+    DoctorDiffCallback
+) {
 
-    inner class DoctorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameTextView: AppCompatTextView = itemView.findViewById(R.id.name)
-        private val professionTextView: AppCompatTextView = itemView.findViewById(R.id.profession)
-        private val addInfoTextView: AppCompatTextView = itemView.findViewById(R.id.addInfo)
-        private val compasitiveTextView: AppCompatTextView = itemView.findViewById(R.id.compasitive)
+    inner class DoctorViewHolder(private val binding: ItemDoctorBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(doctor: DoctorDisplayModel) {
-            nameTextView.text = doctor.name
-            professionTextView.text = doctor.profession
-            addInfoTextView.text = doctor.addInfo
-            compasitiveTextView.text = doctor.compasitive
+            binding.name.text = doctor.name
+            binding.profession.text = doctor.profession
+            binding.addInfo.text = doctor.addInfo
+            binding.compasitive.text = doctor.compasitive
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_doctor, parent, false)
-        return DoctorViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemDoctorBinding.inflate(inflater, parent, false)
+        return DoctorViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: DoctorViewHolder, position: Int) {
-        val doctor = doctors[position]
+        val doctor = getItem(position)
         holder.bind(doctor)
-    }
-
-    override fun getItemCount(): Int {
-        return doctors.size
     }
 }

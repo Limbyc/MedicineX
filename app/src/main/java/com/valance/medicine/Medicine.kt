@@ -1,11 +1,7 @@
 package com.valance.medicine
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-
-
-class Medicine : Application() {
-    override fun onCreate() {
-        super.onCreate()
-    }
-}
+@HiltAndroidApp
+class Medicine : Application()

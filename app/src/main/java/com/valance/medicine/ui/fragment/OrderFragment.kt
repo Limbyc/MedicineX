@@ -11,28 +11,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.valance.medicine.R
-import com.valance.medicine.data.repository.DoctorRepository
-import com.valance.medicine.data.source.FirestoreDoctorDataSource
 import com.valance.medicine.databinding.OrderFragmentBinding
-import com.valance.medicine.domain.model.Doctor
 import com.valance.medicine.ui.adapter.DoctorAdapter
 import com.valance.medicine.ui.model.DoctorDisplayModel
-import com.valance.medicine.ui.presenter.DoctorPresenter
-import com.valance.medicine.ui.presenter.ProfessionPresenter
 import com.valance.medicine.ui.view.DoctorContractInterface
 import com.valance.medicine.ui.view.ProfessionInterface
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class OrderFragment : Fragment(), ProfessionInterface,
-    DoctorContractInterface.Presenter , DoctorContractInterface.View {
+    @AndroidEntryPoint
+    class OrderFragment : Fragment(), ProfessionInterface, DoctorContractInterface.View
+    {
 
-    private lateinit var binding: OrderFragmentBinding
-    private lateinit var tabLayout: TabLayout
-    private lateinit var tabLayout1: TabLayout
-    private lateinit var presenter: ProfessionPresenter
-    private lateinit var presenterDoctor: DoctorContractInterface.Presenter
-    private lateinit var doctorAdapter: DoctorAdapter
+        private lateinit var binding: OrderFragmentBinding
+        private lateinit var tabLayout: TabLayout
+        private lateinit var tabLayout1: TabLayout
 
-
+        @Inject lateinit var presenter: DoctorContractInterface.Presenter
+        @Inject lateinit var doctorAdapter: DoctorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,25 +41,18 @@ class OrderFragment : Fragment(), ProfessionInterface,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataSource = FirestoreDoctorDataSource()
-        val repository = DoctorRepository(dataSource)
-
-        doctorAdapter = DoctorAdapter(emptyList())
-
-        presenterDoctor = DoctorPresenter(this, repository)
-        presenterDoctor.getDoctors()
 
         tabLayout1 = binding.tabLayout1
         tabLayout = binding.tabLayout
-        presenter = ProfessionPresenter(this)
-        presenter.getDataFromFirebase()
+
         chooseCost()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = doctorAdapter
+
+        presenter.getDoctors()
+
     }
-
-
 
     override fun showData(data: List<String>) {
         for (profession in data) {
@@ -80,9 +69,9 @@ class OrderFragment : Fragment(), ProfessionInterface,
         return customTabView
     }
 
-    private fun chooseCost(){
-        val costList = listOf("Бесплатно","Платно")
-        for (costLists in costList){
+    private fun chooseCost() {
+        val costList = listOf("Бесплатно", "Платно")
+        for (costLists in costList) {
             val tab = tabLayout1.newTab()
             val customTabView = createTabView(costLists)
             tab.customView = customTabView
@@ -94,14 +83,13 @@ class OrderFragment : Fragment(), ProfessionInterface,
         tabLayout1.getTabAt(0)?.select()
     }
 
-
     private fun createTabListener(): TabLayout.OnTabSelectedListener {
         return object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                Log.d("MainFragment", "onTabSelected called")
+                Log.d("OrderFragment", "onTabSelected called")
                 val selectedCoffeeType: String? = tab.tag as? String
                 selectedCoffeeType?.let { text ->
-                    Log.d("MainFragment", "Selected coffee type: $text")
+                    Log.d("OrderFragment", "Selected coffee type: $text")
                 }
                 updateTabAppearance(tab, R.color.order, R.drawable.tab_layout_item_cost)
             }
@@ -125,16 +113,8 @@ class OrderFragment : Fragment(), ProfessionInterface,
 
     override fun showDoctors(doctors: List<DoctorDisplayModel>) {
         Log.d("OrderFragment", "Number of doctors: ${doctors.size}")
-        doctorAdapter = DoctorAdapter(doctors)
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = doctorAdapter
+        doctorAdapter.submitList(doctors)
     }
 
-
-    override fun getDoctors() {
-        presenterDoctor.getDoctors()
-    }
 
 }
-
-

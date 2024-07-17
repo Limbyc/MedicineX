@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.protobuf)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -72,8 +74,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //protoDB
-//    implementation(libs.protobuf.javalite)
     implementation (libs.androidx.datastore.preferences)
+
+    //logger
+    implementation (libs.log4j.core)
+    implementation (libs.log4j.api)
+
+    //hilt
+    implementation(libs.hilt.android.v244)
+    kapt(libs.hilt.android.compiler)
+
+
 }
 
 protobuf {

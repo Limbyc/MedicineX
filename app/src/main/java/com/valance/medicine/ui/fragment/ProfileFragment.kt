@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
         binding = ProfileFragmentBinding.inflate(inflater, container, false)
         imageHelper = ImageHelper()
 
-        // Инициализация use cases
         getUserInfoUseCase = GetUserInfoUseCase(requireContext().userInfoDataStore)
         saveUserInfoUseCase = SaveUserInfoUseCase(requireContext().userInfoDataStore)
 

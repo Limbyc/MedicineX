@@ -4,8 +4,13 @@ firebaseCrashlytics = "19.0.3"
 firebaseCrashlyticsGradle = "3.0.2"
 firebaseFirestoreKtx = "25.0.0"
 fragmentKtx = "1.8.1"
+googleHiltAndroidVersion = "2.51"
+googleHiltCompiler = "1.20"
 googleServices = "4.4.2"
 gradle = "8.1.4"
+hiltAndroid = "2.44"
+hiltAndroidCompiler = "2.49"
+hiltAndroidGradlePlugin = "2.51.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -13,6 +18,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 kotlinxCoroutinesCore = "1.7.3"
+log4jCore = "2.17.1"
 lottie = "6.4.0"
 material = "1.12.0"
 activity = "1.9.0"
@@ -38,6 +44,11 @@ firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlyti
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
+hilt-android-v244 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-v251 = { module = "com.google.dagger:hilt-android", version.ref = "googleHiltAndroidVersion" }
+hilt-compiler-v120 = { module = "com.google.dagger:hilt-compiler", version.ref = "googleHiltCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -45,6 +56,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4jCore" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4jCore" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -61,3 +74,4 @@ google-gms-google-services = { id = "com.google.gms.google-services", version.re
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
 android-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "androidSerialization" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
+

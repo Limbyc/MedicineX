@@ -11,7 +11,6 @@ import java.io.FileOutputStream
 
 class ImageHelper {
 
-    private val DEFAULT_IMAGE_RESOURCE = R.drawable.default_image
     fun saveImageToInternalStorage(context: Context, bitmap: Bitmap): String? {
         val contextWrapper = ContextWrapper(context)
         val directory = contextWrapper.getDir("images", Context.MODE_PRIVATE)
@@ -36,7 +35,7 @@ class ImageHelper {
         return if (imagePath != null) {
             BitmapFactory.decodeFile(imagePath)
         } else {
-            BitmapFactory.decodeResource(context.resources, DEFAULT_IMAGE_RESOURCE)
+            BitmapFactory.decodeResource(context.resources, R.drawable.default_image)
         }
     }
 

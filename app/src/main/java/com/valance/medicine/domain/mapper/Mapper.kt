@@ -1,5 +1,7 @@
 package com.valance.medicine.domain.mapper
 
+import android.content.Context
+import com.valance.medicine.R
 import com.valance.medicine.data.model.DoctorDataModel
 import com.valance.medicine.domain.model.Doctor
 import com.valance.medicine.ui.model.DoctorDisplayModel
@@ -14,9 +16,9 @@ fun DoctorDataModel.toDomainModel(): Doctor {
     )
 }
 
-fun Doctor.toDisplayModel(): DoctorDisplayModel {
+fun Doctor.toDisplayModel(context: Context): DoctorDisplayModel {
     return DoctorDisplayModel(
-        id = "Doctor ID: ${this.id}",
+        id = context.getString(R.string.doctor_id_label, this.id.toString()),
         name = this.name,
         profession = this.profession,
         addInfo = this.addInfo,

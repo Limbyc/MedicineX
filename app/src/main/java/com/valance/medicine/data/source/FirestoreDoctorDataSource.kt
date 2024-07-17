@@ -1,27 +1,21 @@
 package com.valance.medicine.data.source
 
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import com.valance.medicine.data.model.DoctorDataModel
+import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class FirestoreDoctorDataSource {
-    private val db = FirebaseFirestore.getInstance()
-    private val doctorsCollection = db.collection("Doctor")
+class FirestoreDoctorDataSource @Inject constructor(private val firestore: FirebaseFirestore) {
 
-    suspend fun getDoctors(): List<DoctorDataModel> = withContext(Dispatchers.IO) {
-        try {
-            val querySnapshot = doctorsCollection.get().await()
-            val doctorsList = mutableListOf<DoctorDataModel>()
-            for (document in querySnapshot.documents) {
-                val doctor = document.toObject(DoctorDataModel::class.java)
-                doctor?.let { doctorsList.add(it) }
+    suspend fun getDoctors(): Result<List<DoctorDataModel>> {
+        return try {
+            val snapshot = firestore.collection("doctors").get().await()
+            val doctors = snapshot.documents.map { document ->
+                document.toObject(DoctorDataModel::class.java) ?: throw Exception("Invalid data")
             }
-            doctorsList
+            Result.success(doctors)
         } catch (e: Exception) {
-            e.printStackTrace()
-            emptyList()
+            Result.failure(e)
         }
     }
 }

@@ -23,22 +23,20 @@ import com.valance.medicine.ui.presenter.AuthPresenter
 
 class AuthFragment: Fragment() {
 
-    private lateinit var binding: AuthFragmentBinding
-    private lateinit var authPresenter: AuthPresenter
-    private lateinit var navController: NavController
+    private val userModel: UserModel by lazy { UserModel(requireContext()) }
+    private val authPresenter: AuthPresenter by lazy { AuthPresenter(userModel, navController, this) }
+    private val navController: NavController by lazy { findNavController() }
     private var authFlag = 0
+
+    private var _binding: AuthFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = AuthFragmentBinding.inflate(inflater,container, false)
-
-        navController = findNavController()
-        val userModel = UserModel(requireContext())
-        authPresenter = AuthPresenter(userModel, navController, this)
-
+        _binding = AuthFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
