@@ -14,21 +14,21 @@ import com.valance.medicine.R
 import com.valance.medicine.databinding.OrderFragmentBinding
 import com.valance.medicine.ui.adapter.DoctorAdapter
 import com.valance.medicine.ui.model.DoctorDisplayModel
-import com.valance.medicine.ui.view.DoctorContractInterface
-import com.valance.medicine.ui.view.ProfessionInterface
+import com.valance.medicine.ui.view.DoctorContract
+import com.valance.medicine.ui.view.ProfessionContract
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-    @AndroidEntryPoint
-    class OrderFragment : Fragment(), ProfessionInterface, DoctorContractInterface.View
-    {
+@AndroidEntryPoint
+class OrderFragment : Fragment(), ProfessionContract.View, DoctorContract.View
+{
 
-        private lateinit var binding: OrderFragmentBinding
-        private lateinit var tabLayout: TabLayout
-        private lateinit var tabLayout1: TabLayout
+    private lateinit var binding: OrderFragmentBinding
+    private lateinit var tabLayout: TabLayout
+    private lateinit var tabLayout1: TabLayout
 
-        @Inject lateinit var presenter: DoctorContractInterface.Presenter
-        @Inject lateinit var doctorAdapter: DoctorAdapter
+    @Inject lateinit var presenter: DoctorContract.Presenter
+    @Inject lateinit var doctorAdapter: DoctorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,10 +54,10 @@ import javax.inject.Inject
 
     }
 
-    override fun showData(data: List<String>) {
+    override fun showData(data: List<Any?>) {
         for (profession in data) {
             val tab = tabLayout.newTab()
-            val customTabView = createTabView(profession)
+            val customTabView = createTabView(profession.toString()) //если не сработает
             tab.customView = customTabView
             tabLayout.addTab(tab)
         }

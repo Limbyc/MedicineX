@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.valance.medicine.R
 import com.valance.medicine.databinding.StartFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StartFragment: Fragment() {
 
     private lateinit var binding: StartFragmentBinding
@@ -20,7 +22,7 @@ class StartFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         binding = StartFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }

@@ -3,16 +3,24 @@ package com.valance.medicine
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.fragment.NavHostFragment
-
 import com.valance.medicine.databinding.ActivityMainBinding
-import com.valance.medicine.ui.fragment.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -20,49 +28,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemUI()
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.navigate(R.id.profileFragment)
-//
-//
-//        val myApplication = application as Medicine
-//
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            when (destination.id) {
-//                R.id.startFragment , R.id.authFragment , R.id.registrationFragment, R.id.userInfoFragment -> {
-//                    binding.bottomNav.visibility = View.GONE
-//                }
-//                else -> {
-//                    binding.bottomNav.visibility = View.VISIBLE
-//                }
-//            }
-//        }
-//
-//        binding.bottomNav.setItemSelected(R.id.home)
-//        binding.bottomNav.setOnItemSelectedListener {
-//            when (it) {
-//                R.id.home -> {
-//                    if (navController.currentDestination?.id != R.id.mainFragment) {
-//                        navController.navigate(R.id.mainFragment)
-//                    }
-//                }
-//
-//                R.id.order -> {
-//                    if (navController.currentDestination?.id != R.id.orderFragment) {
-//                        navController.navigate(R.id.orderFragment)
-//                    }
-//                }
-//
-//                R.id.profile -> {
-//                    if (navController.currentDestination?.id != R.id.profileFragment) {
-//                        navController.navigate(R.id.profileFragment)
-//                    }
-//                }
-//            }
-//        }
-    }
 
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
+//        val navController = navHostFragment.navController
+//        navController.navigate(R.id.profileFragment)
+    }
 
     private fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -72,4 +43,37 @@ class MainActivity : AppCompatActivity() {
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
+
+
+    @Composable
+    fun NavHostContainer(
+        navController: NavHostController,
+        padding: PaddingValues
+    ) {
+
+        NavHost(
+            navController = navController,
+            startDestination = "home",
+            modifier = Modifier.padding(paddingValues = padding),
+            builder = {
+
+                // route : Home
+                composable("home") {
+                    navController.navigate(R.id.mainFragment)
+                }
+
+                // route : search
+                composable("search") {
+                    navController.navigate(R.id.orderFragment)
+                }
+
+                // route : profile
+                composable("profile") {
+                    navController.navigate(R.id.profileFragment)
+                }
+            })
+    }
+
+
+
 }

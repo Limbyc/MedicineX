@@ -19,8 +19,9 @@ import com.valance.medicine.R
 import com.valance.medicine.databinding.AuthFragmentBinding
 import com.valance.medicine.ui.model.UserModel
 import com.valance.medicine.ui.presenter.AuthPresenter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AuthFragment: Fragment() {
 
     private val userModel: UserModel by lazy { UserModel(requireContext()) }
@@ -46,41 +47,41 @@ class AuthFragment: Fragment() {
             findNavController().navigate(R.id.registrationFragment)
         }
 
-            binding.phoneAuth.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        binding.phoneAuth.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-                override fun afterTextChanged(s: Editable?) {
-                    formatPhoneNumber(s)
-                    successRegistration()
-                    authFlag = 1
-                }
-            })
-            binding.passwordAuth.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-                override fun afterTextChanged(s: Editable?) {
-                    successRegistration()
-                    authFlag = 1
-                }
-            })
-
-            watchPasswordAuth()
-
-            binding.loginButton.setOnClickListener {
-                val phone = binding.phoneAuth.text.toString().trim()
-                val password = binding.passwordAuth.text.toString().trim()
-
-                if (phone.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
-                    authFlag = 0
-                } else {
-                    authPresenter.authenticateUser(phone, password)
-                }
+            override fun afterTextChanged(s: Editable?) {
+                formatPhoneNumber(s)
+                successRegistration()
+                authFlag = 1
             }
+        })
+        binding.passwordAuth.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                successRegistration()
+                authFlag = 1
+            }
+        })
+
+        watchPasswordAuth()
+
+        binding.loginButton.setOnClickListener {
+            val phone = binding.phoneAuth.text.toString().trim()
+            val password = binding.passwordAuth.text.toString().trim()
+
+            if (phone.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
+                authFlag = 0
+            } else {
+                authPresenter.authenticateUser(phone, password)
+            }
+        }
     }
 
     private fun formatPhoneNumber(text: Editable?) {

@@ -18,13 +18,15 @@ import com.valance.medicine.R
 import com.valance.medicine.data.userInfoDataStore
 import com.valance.medicine.databinding.UserinfoFragmentBinding
 import com.valance.medicine.ui.presenter.UserInfoPresenter
-import com.valance.medicine.ui.view.UserInfoView
+import com.valance.medicine.ui.view.UserInfoContract
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserInfoFragment: Fragment(), UserInfoView {
+@AndroidEntryPoint
+class UserInfoFragment: Fragment(), UserInfoContract.View {
 
     private lateinit var binding: UserinfoFragmentBinding
     private lateinit var presenter: UserInfoPresenter

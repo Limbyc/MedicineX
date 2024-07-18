@@ -19,11 +19,15 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.valance.medicine.ui.model.UserModel
 import com.valance.medicine.ui.presenter.RegistrationPresenter
-import com.valance.medicine.ui.view.UserAuthView
+import com.valance.medicine.ui.view.AuthContract
+import com.valance.medicine.ui.view.UserInfoContract
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class RegistrationFragment : Fragment(), UserAuthView {
+@AndroidEntryPoint
+class RegistrationFragment : Fragment(), AuthContract.View {
 
     private lateinit var binding: RegistrationFragmentBinding
     private var registrationFlag = 0
@@ -43,6 +47,8 @@ class RegistrationFragment : Fragment(), UserAuthView {
         binding = RegistrationFragmentBinding.inflate(inflater,container, false)
         return binding.root
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

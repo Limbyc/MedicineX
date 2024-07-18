@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+option java_package = "com.valance.medicine.data";
+
+message ImagePath {
+    string path = 1;
+}

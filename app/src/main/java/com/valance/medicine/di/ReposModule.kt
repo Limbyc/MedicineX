@@ -6,7 +6,7 @@ import com.valance.medicine.data.source.FirestoreDoctorDataSource
 import com.valance.medicine.ui.adapter.DoctorAdapter
 import com.valance.medicine.ui.fragment.OrderFragment
 import com.valance.medicine.ui.presenter.DoctorPresenter
-import com.valance.medicine.ui.view.DoctorContractInterface
+import com.valance.medicine.ui.view.DoctorContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,12 +40,12 @@ object ReposModule {
     }
 
     @Provides
-    fun provideDoctorPresenter(repository: DoctorRepository): DoctorContractInterface.Presenter {
+    fun provideDoctorPresenter(repository: DoctorRepository): DoctorContract.Presenter {
         return DoctorPresenter(repository)
     }
 
     @Provides
-    fun provideDoctorView(doctorActivity: OrderFragment): DoctorContractInterface.View {
+    fun provideDoctorView(doctorActivity: OrderFragment): DoctorContract.View {
         return doctorActivity
     }
 }

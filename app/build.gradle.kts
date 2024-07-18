@@ -40,17 +40,38 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures{
+        compose = true
         viewBinding = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
 }
 
 dependencies {
+    //Compose
+    implementation (libs.material.v140)
+    implementation (libs.androidx.ui)
+    implementation (libs.androidx.material)
+    implementation (libs.androidx.ui.tooling)
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.activity.compose.v131)
+    implementation(libs.ui.viewbinding)
+    testImplementation (libs.junit)
+    androidTestImplementation (libs.androidx.junit.v113)
+    androidTestImplementation (libs.androidx.espresso.core.v340)
+    androidTestImplementation (libs.androidx.ui.test.junit4)
+
+    implementation  (libs.androidx.navigation.compose.v240alpha07)
+
     //Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.datastore.core.android)
+    implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.foundation.desktop)
     testImplementation(libs.kotlinx.coroutines.test)
 
     //firebase
@@ -69,9 +90,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     //protoDB
     implementation (libs.androidx.datastore.preferences)
@@ -81,8 +99,8 @@ dependencies {
     implementation (libs.log4j.api)
 
     //hilt
-    implementation(libs.hilt.android.v244)
-    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android.v251)
+    kapt(libs.hilt.android.compiler.v244)
 
 
 }

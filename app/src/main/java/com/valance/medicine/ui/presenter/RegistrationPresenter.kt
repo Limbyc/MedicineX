@@ -5,8 +5,8 @@ import androidx.navigation.NavController
 import com.valance.medicine.R
 import com.valance.medicine.domain.usecase.SaveUserInfoUseCase
 import com.valance.medicine.ui.model.UserModel
-import com.valance.medicine.ui.view.UserAuthView
 import com.valance.medicine.data.userInfoDataStore
+import com.valance.medicine.ui.view.AuthContract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,7 +14,7 @@ class RegistrationPresenter(
     private val userModel: UserModel,
     private val navController: NavController,
     private val context: Context,
-    private val userAuthView: UserAuthView
+    private val userAuthView: AuthContract.View
 ) {
     private val saveUserInfoUseCase = SaveUserInfoUseCase(context.userInfoDataStore)
 
