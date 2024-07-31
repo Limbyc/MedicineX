@@ -19,7 +19,8 @@ object UserInfoSerializer : androidx.datastore.core.Serializer<UserInfoOuterClas
     }
 }
 
+// todo: move it to hilt
 val Context.userInfoDataStore: DataStore<UserInfoOuterClass.UserInfo> by dataStore(
     fileName = "user_info.proto",
-    serializer = UserInfoSerializer
+    serializer = UserInfoSerializer,
 )

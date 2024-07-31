@@ -19,7 +19,8 @@ object ImagePathSerializer  : androidx.datastore.core.Serializer<ImagePathOuterC
     }
 }
 
+// todo: move it to hilt
 val Context.imagePathDataStore: DataStore<ImagePathOuterClass.ImagePath> by dataStore(
     fileName = "image_path.proto",
-    serializer = ImagePathSerializer
+    serializer = ImagePathSerializer,
 )

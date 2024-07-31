@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option java_package = "com.valance.medicine.data";
+
+message UserInfo {
+    string id = 1;
+    string user_phone = 2;
+}
