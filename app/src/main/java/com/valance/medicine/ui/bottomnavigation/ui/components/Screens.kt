@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -28,7 +28,7 @@ class Screens {
                 .background(Color.White),
             // Parameters set to place the items in center
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             // Icon Composable
             Icon(
@@ -50,13 +50,13 @@ class Screens {
                 .background(Color.White),
             // parameters set to place the items in center
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             // Icon Composable
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "search",
-                tint = Color(0xFF0F9D58)
+                tint = Color(0xFF0F9D58),
             )
             // Text to Display the current Screen
             Text(text = "Search", color = Color.Black)
@@ -73,13 +73,13 @@ class Screens {
                 .background(Color.White),
             // parameters set to place the items in center
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             // Icon Composable
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Profile",
-                tint = Color(0xFF0F9D58)
+                tint = Color(0xFF0F9D58),
             )
             // Text to Display the current Screen
             Text(text = "Profile", color = Color.Black)

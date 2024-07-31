@@ -3,7 +3,7 @@ buildscript {
         classpath(libs.gradle)
         classpath(libs.google.services)
         classpath(libs.firebase.crashlytics.gradle)
-        classpath(libs.hilt.android.gradle.plugin)
+        classpath(libs.hilt.plugin)
     }
 }
 
@@ -13,5 +13,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.google.gms.google.services) apply false
     alias(libs.plugins.google.firebase.crashlytics) apply false
-    id("com.google.dagger.hilt.android") version "2.49" apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.protobuf) apply false
 }
