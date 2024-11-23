@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Medicine</string>
+    <string name="registr">Регистрация</string>
+    <string name="doctor_id_label">Doctor ID: %1$s</string>
+    <string name="user_id_label">ID: %1$s</string>
+    <string name="user_phone_label">Phone: %1$s</string>
+
+    <string name="mainScreen">Главная</string>
+
 </resources>
