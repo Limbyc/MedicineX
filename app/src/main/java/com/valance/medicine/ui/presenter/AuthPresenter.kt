@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AuthPresenter(
@@ -30,7 +31,7 @@ class AuthPresenter(
         CoroutineScope(Dispatchers.IO).launch {
             val isAuthenticated = userModel.checkUserCredentials(phone, password)
 
-            with(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 if (isAuthenticated) {
                     navController.navigate(R.id.mainFragment)
                 } else {
@@ -40,3 +41,4 @@ class AuthPresenter(
         }
     }
 }
+

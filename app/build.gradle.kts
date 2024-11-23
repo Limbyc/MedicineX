@@ -57,10 +57,11 @@ dependencies {
     //Compose
     implementation (libs.compose.ui)
     implementation (libs.compose.ui.tooling)
-    implementation (libs.compose.material3)
     implementation (libs.compose.foundation)
 
     implementation (libs.material)
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
     implementation (libs.androidx.lifecycle.runtime.ktx)
 
     implementation (libs.androidx.activity.compose)
@@ -73,6 +74,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.material3.android)
     testImplementation(libs.kotlinx.coroutines.test)
 
     //firebase

@@ -16,4 +16,9 @@
 
     //order_fragment
     <color name="TabLayout">#F1F1F1</color>
+
+    <color name="orange">#FF7648</color>
+
+    //bottom_navigation
+    <color name="bottomBar">#FAF9F9</color>
 </resources>

@@ -1,10 +1,7 @@
 package com.valance.medicine.ui.model
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.tasks.await
 
 class UserModel(private val context: Context) {
